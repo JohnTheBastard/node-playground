@@ -17,7 +17,7 @@ After you fork or clone the repo to your machine, you probably want to
    code, so this way you can always get it back by checking out the correct
    branch for whatever you were working on before.   
 
-3. create a new js file to play with, e.g. `emacsgit  ./www/js/foo.js`  
+3. create a new js file to play with, e.g. `emacs ./www/js/foo.js`  
 
 4. blow away whatever is in `www/js/index.js` include your new js file, and put
    your code to generate some output here.  
