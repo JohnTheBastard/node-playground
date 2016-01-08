@@ -1,5 +1,8 @@
-var XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
+var greet = require( './greet' ).greet;
 
-console.log(  XXXXXXX("foo") );
+//console.log('hello: ', hello);
+
+console.log( greet('World') );
+
 
 //alert("foo");
