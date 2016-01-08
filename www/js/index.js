@@ -1,8 +1,5 @@
-var someStrings = ["aabbaa", "xabacd", "abbaxcd", "dacxcabbbad",
-				   "able was i ere i saw elba aaaabbbaaaaa", "dabxcbad"];
+var fizzbuzz = require( './fizzbuzz' ).fizzbuzz;
 
-var findpal = require( './findLongestPalindrome' ).findLongestPalindrome;
+//console.log( fizzbuzz(19) );
+console.log( fizzbuzz(31) );
 
-console.log( findpal( someStrings[4] ) );
-
-//alert("foo");
