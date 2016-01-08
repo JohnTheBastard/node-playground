@@ -1,11 +1,7 @@
 var assert = require( 'chai' ).assert;
-var Vector = require( '../www/js/vector' );
+//var XXXXXXX = require( '../www/js/xxxxxx' ).XXXXXX;
 
-// suppress jshint errors
-var v = new Vector(2);
-v.push(1);
-
-describe( 'tests Vector object methods', function() {
+describe( 'tests XXXXXX methods', function() {
     it( 'should ...', function(){
 		assert( true );
 		assert( true );
