@@ -1,5 +1,5 @@
 var assert = require( 'chai' ).assert;
-var Vector = require( '../www/js/vector' );
+var Vector = require( '../www/js/vector' ).Vector;
 
 describe( 'tests Vector object methods', function() {
     it( 'should ...', function(){
