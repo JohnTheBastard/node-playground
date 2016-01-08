@@ -9,7 +9,6 @@ var secretSanta_module = {
 			return recipients.map( (a) => a.length).reduce( (pv, cv) => pv+cv );
 		};
 		
-		
 		var currentFamily = [];
 		var exchangeFamily = [];
 		var exchanges = {};
