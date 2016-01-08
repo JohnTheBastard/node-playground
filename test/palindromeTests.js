@@ -25,4 +25,5 @@ describe( 'longest palindrome', () => {
 	it( 'finds overlapping palindrome that is longer', () => {
 		assert.equal( findLongest( 'xabacab' ), 'bacab' );
 	});
+
 });
