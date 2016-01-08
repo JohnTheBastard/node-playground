@@ -68,4 +68,3 @@ module.exports = vector_module;
 
 
 
-

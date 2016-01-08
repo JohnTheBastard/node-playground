@@ -1,7 +1,7 @@
 var assert = require( 'chai' ).assert;
-var Vector = require( '../www/js/vector' );
+//var XXXXXXX = require( '../www/js/xxxxxx' ).XXXXXX;
 
-describe( 'tests Vector object methods', function() {
+describe( 'tests XXXXXX methods', function() {
     it( 'should ...', function(){
 		assert( true );
 		assert( true );

@@ -20,7 +20,7 @@ var happyNumber_module = {
 	
 		function notInPastValues(n) {
 			for(var ii = 0; ii < pastValues.length; ii ++) {
-				if( n == pastValues[ii] ){ 
+				if( n === pastValues[ii] ){ 
 					return false;
 				}
 			}
@@ -37,9 +37,9 @@ var happyNumber_module = {
 		
 			//console.log(n + " =>" + sum);
 		
-			if (notInPastValues(sum)) {
-				pastValues.push(sum)
-			};
+			if ( notInPastValues(sum) ) {
+				pastValues.push(sum);
+			}
 		
 			return sum;
 		}
@@ -54,6 +54,6 @@ var happyNumber_module = {
 	
 	return hn_rec( sumDigitSquares(n) );
 	}
-}
+};
 
 module.exports = happyNumber_module;
