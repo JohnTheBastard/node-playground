@@ -1,4 +1,3 @@
-/*
 var assert = require( 'chai' ).assert;
 var BitmapTransformer = require( '../www/js/bitmapTransformer' ).BitmapTransformer;
 
@@ -17,4 +16,3 @@ describe( 'tests BitmapTransformer object methods', function() {
 		//assert( true );
     });
 });
-*/
