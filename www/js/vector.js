@@ -61,6 +61,10 @@ var vector_module = {
     }
 };
 
+// suppress jshint errors
+var v = new Vector(2);
+v.push(1);
+
 module.exports = vector_module;
 
 

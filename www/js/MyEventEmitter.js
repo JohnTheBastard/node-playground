@@ -1,6 +1,6 @@
 //var events = require("events");
 
-
+/*
 function callback_on(){
 	console.log("ON");
 }
@@ -13,6 +13,8 @@ function callback_fire(){
 	console.log("FIRE");
 }
 
+var MyEventEmitter;
+
 MyEventEmitter.prototype = {
 	constructor: MyEventEmitter,
 	on: function( eventOn, callback_on){ 
@@ -24,4 +26,5 @@ MyEventEmitter.prototype = {
 	fire: function( eventFire, callback_fire){ 
 		
 	}
-}
+};
+*/
