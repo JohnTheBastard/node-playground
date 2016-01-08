@@ -1,3 +1,6 @@
+// Quick and dirty longest palindrome finder
+// It fail sometimes! see tests or index.js for cases
+
 var longestPalindrome_module = {
 	findLongestPalindrome: function (str) {
 		var reversed = function(str){

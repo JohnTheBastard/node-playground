@@ -24,7 +24,7 @@ function happyNumber(n) {
 		
 		console.log(n + " =>" + sum);
 		
-		if (notInPastValues(sum)) {pastValues.push(sum)};
+		if (notInPastValues(sum)) {pastValues.push(sum);}
 		
 		return sum;
 	}
@@ -43,4 +43,3 @@ function happyNumber(n) {
 for (var jj = 1; jj < 101; jj++) {
 	console.log( jj + " => " + happyNumber(jj) );
 }
- 

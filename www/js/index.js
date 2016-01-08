@@ -1,8 +1,11 @@
 var someStrings = ["aabbaa", "xabacd", "abbaxcd", "dacxcabbbad",
 				   "able was i ere i saw elba aaaabbbaaaaa", "dabxcbad"];
 
-var findpal = require( './findLongestPalindrome' ).findLongestPalindrome;
+var testStrings = ["xabacd", "xdabadcd", "xabbacd", "drracxcabbbcd", "dacabacax", "xabacab"]
+var testAnswers = ["aba", "dabad", "abba", "acxca", "acabaca", "bacab"];
 
-console.log( findpal( someStrings[4] ) );
+var findLongest = require( './findLongestPalindrome' ).findLongestPalindrome;
 
-//alert("foo");
+for(var ii = 0; ii < testStrings.length; ii++) {
+	console.log( findLongest( testStrings[ii] ) + " == " + testAnswers[ii] + " ?" );
+}
