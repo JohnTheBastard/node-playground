@@ -12,11 +12,11 @@ var fizzbuzz_module = {
 		return [...Array(n)].map((x, ii) => {
 			ii++;
 			var value = '';
-			if ( divisibleBy(3)(ii) ) value = f;
-			if ( divisibleBy(5)(ii) ) value += b;
+			if ( divisibleBy(3)(ii) ) { value = f; }
+			if ( divisibleBy(5)(ii) ) { value += b; }
 			return value || ii;
 		});	
 	}
-}
+};
 
 module.exports = fizzbuzz_module;

@@ -29,10 +29,10 @@ var longestPalindrome_module = {
 				}
 			}
 			return arrayOfStrings[watermark];
-		}
+		};
 		
 		return returnLongestOf( allPalindromes(str) ) || str.charAt(0);
 	}
-}
+};
 
 module.exports = longestPalindrome_module;

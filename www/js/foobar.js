@@ -11,13 +11,13 @@ function Bar(foo) {
 var foo = new Foo();
 var bar = foo.bar;
 
-console.log(foo.x == 10);
-console.log(bar.y == 20);
+console.log(foo.x === 10);
+console.log(bar.y === 20);
 
 foo.x = 11;
 bar.y = 22;
 
-console.log( bar.foo.x == 11 );
-console.log( foo.bar.y == 22 );
+console.log( bar.foo.x === 11 );
+console.log( foo.bar.y === 22 );
 
 
