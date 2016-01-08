@@ -1,6 +1,3 @@
-// Quick and dirty longest palindrome finder
-// It fail sometimes! see tests or index.js for cases
-
 var longestPalindrome_module = {
 	findLongestPalindrome: function (str) {
 		var reversed = function(str){
@@ -32,10 +29,10 @@ var longestPalindrome_module = {
 				}
 			}
 			return arrayOfStrings[watermark];
-		}
+		};
 		
 		return returnLongestOf( allPalindromes(str) ) || str.charAt(0);
 	}
-}
+};
 
 module.exports = longestPalindrome_module;
