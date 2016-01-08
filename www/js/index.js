@@ -1,10 +1,5 @@
-var BitmapTransformer = require( './bitmapTransformer' ).BitmapTransformer;
-/*
-var pathToFile = '../img/bitmap.bmp';
+var XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
 
-var bmt = new BitmapTransformer( pathToFile );
-var buffer = bmt.buffer;
-//console.log(bmt.buffer);
+console.log(  XXXXXXX("foo") );
 
-console.log(buffer);
-*/
+//alert("foo");
