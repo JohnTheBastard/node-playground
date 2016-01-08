@@ -1,8 +1,8 @@
-var someStrings = ["aabbaa", "xabacd", "abbaxcd", "dacxcabbbad",
-				   "able was i ere i saw elba aaaabbbaaaaa", "dabxcbad"];
+var happyNumber = require( './happynumbers' ).happyNumber;
 
-var findpal = require( './findLongestPalindrome' ).findLongestPalindrome;
-
-console.log( findpal( someStrings[4] ) );
+for (var jj = 1; jj < 101; jj++) {
+	if( happyNumber(jj) )
+	console.log( jj + " is happy ");
+}
 
 //alert("foo");
