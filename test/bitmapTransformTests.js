@@ -1,4 +1,5 @@
 var assert = require( 'chai' ).assert;
+var fs = require('fs');
 var BitmapTransformer = require( '../www/js/bitmapTransformer' ).BitmapTransformer;
 
 // It annoys me that the file path is relative to the script file not the test file...
@@ -13,6 +14,10 @@ var filePath = process.cwd() + '/www/img/';
 var fileName = 'bitmap.bmp';
 
 var bmt = new BitmapTransformer( filePath, fileName, 0.5 );
+
+var outputFile = filePath + "transform.bmp";
+var testFile =filePath + "point5transform.bmp";
+
 
 describe( 'tests BitmapTransformer object methods', function() {
     it( 'should read a file', function(){
@@ -34,5 +39,16 @@ describe( 'tests BitmapTransformer object methods', function() {
 		assert( bmt.bitmapData.verticalRes === "b12" );
 		assert( bmt.bitmapData.paletteDepth === "100" );
 		assert( bmt.bitmapData.colorsUsed ===  "100" );
+    });
+    
+    it('should output a correctly transformed file', function(){
+	    var outputBuffer = fs.readFileSync( outputFile );
+		var testBuffer = fs.readFileSync( testFile );
+	    assert( outputBuffer );
+	    assert( outputBuffer instanceof Buffer );
+	    assert( testBuffer );
+	    assert( testBuffer instanceof Buffer );
+	    assert( outputBuffer.toString() == testBuffer.toString() );
+	    
     });
 });
