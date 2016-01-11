@@ -1,11 +1,8 @@
 var shuffle_module = {
-	shuffle: function (deck) {
-		Array.prototype.shuffle = function() {
-			return this.map( function(n) { return [ Math.random(), n ]; } )
-				.sort().map( function(n) { return n[1]; } );
-		};
-		
-		return deck.shuffle(deck);
+	shuffle: function () {
+		return this.map( n => [ Math.random(), n ] )
+				   .sort()
+				   .map( n => n[1] );
 	}
 };
 
