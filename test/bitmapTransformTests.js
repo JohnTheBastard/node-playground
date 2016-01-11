@@ -3,7 +3,6 @@ var fs = require('fs');
 var BitmapTransformer = require( '../www/js/bitmapTransformer' ).BitmapTransformer;
 
 // It annoys me that the file path is relative to the script file not the test file...
-
 /*
 var pathToFile = '../img/bitmap.bmp';
 var bmt = new BitmapTransformer( pathToFile );
