@@ -72,51 +72,22 @@ var BitmapData = function(buffer, offset) {
 	var self = this;
 	self.parseHeader = function() {
 		self.fileType = read( buffer, offset, 16, 1 );
-		console.log( "file type:        ", self.fileType, " at ", offset.value-2 );
-		
 		self.fileLength = read( buffer, offset, 32, 1 );
-		console.log( "file length:      ", self.fileLength, " at ", offset.value-4  );
-		
-		offset.incrementBy(4);
+		offset.incrementBy(4);                // Skip unused bits
 		self.dataOffset = read( buffer, offset, 32, 1 );
-		console.log( "data begins:      ", self.dataOffset, " at ", offset.value-4 );
-		
 		self.headerLength = read( buffer, offset, 32, 1 );
-		console.log( "length of header: ", self.headerLength, " at ", offset.value-4 );
-		
 		self.bmwidth = read( buffer, offset, 32, 1 );
-		console.log( "width:            ", self.bmwidth, " at ", offset.value-4 );
-		
 		self.bmheight = read( buffer, offset, 32, 1 );
-		console.log( "height:           ", self.bmheight, " at ", offset.value-4 );
-		
 		self.colorPlanes = read( buffer, offset, 16, 1 );
-		console.log( "color planes:     ", self.colorPlanes, " at ", offset.value-2 );
-		
 		self.pixelDepth = read( buffer, offset, 16, 1 );
-		console.log( "depth:            ", self.pixelDepth, " at ", offset.value-2 );
-		
 		self.compression = read( buffer, offset, 32, 1 );
-		console.log( "compression:      ", self.compression, " at ", offset.value-4 );
-		
 		self.imageSize = read( buffer, offset, 32, 1 );
-		console.log( "image size:       ", self.imageSize, " at ", offset.value-4 );
-		
 		self.horizontalRes = read( buffer, offset, 32, 1, "signed" );
-		console.log( "horizontal res:   ", self.horizontalRes, " at ", offset.value-4 );
-
 		self.verticalRes = read( buffer, offset, 32, 1, "signed" );
-		console.log( "vertical res:     ", self.verticalRes, " at ", offset.value-4 );
-		
 		self.paletteDepth = read( buffer, offset, 32, 1 );
-		console.log( "palette depth:    ", self.paletteDepth, " at ", offset.value-4 );
-		
 		self.colorsUsed = read( buffer, offset, 32, 1 );
-		console.log( "colors used:      ", self.colorsUsed, " at ", offset.value-4 );
-		
 		self.paletteOffset = offset.value;
 		self.paletteLength = 128;
-		console.log( "palette offset:   ", self.paletteOffset ); //, "\npalette length:   ", self.paletteLength );
 	};
 	self.parseHeader();
 };
@@ -157,9 +128,9 @@ var bitmapTransformer_module = {
 		var file = filePath + fileName;
 
 		var getBufferData = function( file, async_option ) {
-			if( async_option == 'async' ) {
+			if( async_option === 'async' ) {
 				fs.readFile( file, ( error, data ) => {
-					if (error) throw error;
+					if (error) { throw error; }
 					return data;
 				});
 			} else {
@@ -173,35 +144,36 @@ var bitmapTransformer_module = {
 		    for(var ii=0; ii < colorDepth; ii++) {
 				write( color.table[ii].blue, buffer, offset, 8, 1 );
 				write( color.table[ii].green, buffer, offset, 8, 1 );
-				write( color.table[ii].red, buffer, offset, 8, 1 );
+				write( color.table[ii].red, buffer, offset, 8, 1 );	
+				write( color.table[ii].alpha, buffer, offset, 8, 1 );
 			}
 	    };
 	    
 	    var putBufferData = function ( filePath, buffer, async_option ) {
 		    var file = filePath + 'transform.bmp';
-			if( async_option == 'async' ) {
-				/*
+			if( async_option === 'async' ) {
+				// This code is untested, probably doesn't work
 				fs.write(file, buffer, 0, 0, ( error, data ) => {
-					if (error) throw error;
+					if (error) { throw error; }
 					return data;
 				});
-				*/
+				
 			} else {
 				fs.writeFileSync(file, buffer);
 		    }			
 	    };
 	    
-	    var buffer = getBufferData( file );
+	    self.buffer = getBufferData( file );
 		//console.log( buffer instanceof Buffer);
-		var offset = new Offset(0);
-	    var bitmapData = new BitmapData(buffer, offset);
-	    var color = new ColorTable( buffer, bitmapData, offset);
+		self.offset = new Offset(0);
+	    self.bitmapData = new BitmapData( self.buffer, self.offset);
+	    self.color = new ColorTable( self.buffer, self.bitmapData, self.offset);
 		
-		color.transform( scalar );
+		self.color.transform( scalar );
 	    
-	    writeNewColorMap(color, buffer, bitmapData, offset);
+	    writeNewColorMap( self.color, self.buffer, self.bitmapData, self.offset);
 	    
-	    putBufferData( filePath, buffer );
+	    putBufferData( filePath, self.buffer );
     }
 };
 
