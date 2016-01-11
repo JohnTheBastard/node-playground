@@ -9,9 +9,10 @@ console.log( process.cwd() );
 
 // Why is this failing?
 //var filePath = '../img/bitmap.bmp';
-var filePath = process.cwd() + '/www/img/bitmap.bmp';
+var filePath = process.cwd() + '/www/img/';
+var fileName = 'bitmap.bmp';
 
-var bmt = new BitmapTransformer( filePath );
+var bmt = new BitmapTransformer( filePath, fileName, 0.9 );
 //var buffer = bmt.buffer;
 //console.log(bmt.buffer);
 

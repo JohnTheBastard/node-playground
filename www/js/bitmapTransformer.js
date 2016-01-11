@@ -36,7 +36,36 @@ var read = function(buffer, offset, length, count, signed) {
 			}
 		}
 	}
-	return returnValue.join(" ");
+	return returnValue.join("");
+};
+
+var write = function(value, buffer, offset, length, count, signed) {
+	for (var ii = 0; ii < count; ii++) {
+		if( !signed ) { 
+			if( length === 8 ) {
+				buffer.writeUInt8( parseInt(value, 16), offset.value );
+				offset.incrementBy(1);
+			} else if( length === 16 ) {
+				buffer.writeUInt16LE( parseInt(value, 16), offset.value );
+				offset.incrementBy(2);
+			} else if( length === 32 ) {
+				buffer.writeUInt32LE( parseInt(value, 16), offset.value );
+				offset.incrementBy(4);
+			}
+		} else if( signed ) {
+			if( length === 8 ) {
+				buffer.writeInt8( parseInt( value, 16), offset.value );
+				offset.incrementBy(1);
+			} else if ( length === 16 ) {
+				buffer.writeInt16LE( parseInt(value, 16), offset.value );
+				offset.incrementBy(2);
+			} else if( signed && length === 32 ) {
+				buffer.writeInt32LE( parseInt(value, 16), offset.value );
+				offset.incrementBy(4);
+			}
+		}
+	}
+
 };
 	
 var BitmapData = function(buffer, offset) {
@@ -92,12 +121,12 @@ var BitmapData = function(buffer, offset) {
 	self.parseHeader();
 };
 
-var ColorTable = function( buffer, bmData, offset ) {
+var ColorTable = function( buffer, bitmapData, offset ) {
 	var self = this;
 	self.table = [];
 	self.init = function() {
-	    offset.set( bmData.paletteOffset );
-		var colorDepth = bmData.paletteLength / 4;
+	    offset.set( bitmapData.paletteOffset );
+		var colorDepth = bitmapData.paletteLength / 4;
 	    for(var ii=0; ii < colorDepth; ii++) {
 		    var pixel = { blue:  read(buffer, offset, 8, 1),
 						  green: read(buffer, offset, 8, 1),
@@ -121,43 +150,58 @@ var ColorTable = function( buffer, bmData, offset ) {
 
 
 var bitmapTransformer_module = {
-    BitmapTransformer: function( file ) {
+    BitmapTransformer: function( filePath, fileName, scalar ) {
 		var self = this;
 	    //self.buffer = new Buffer( 0x2B46 );     // 0x2B46 is the size of our file
+		
+		var file = filePath + fileName;
 
 		var getBufferData = function( file, async_option ) {
 			if( async_option == 'async' ) {
 				fs.readFile( file, ( error, data ) => {
 					if (error) throw error;
-				return data;
+					return data;
 				});
 			} else {
 				return fs.readFileSync( file );     
 			}
 	    };	    
 	    
+	    var writeNewColorMap = function(color, buffer, bitmapData, offset) {
+			offset.set(bitmapData.paletteOffset);
+			var colorDepth = bitmapData.paletteLength / 4;
+		    for(var ii=0; ii < colorDepth; ii++) {
+				write( color.table[ii].blue, buffer, offset, 8, 1 );
+				write( color.table[ii].green, buffer, offset, 8, 1 );
+				write( color.table[ii].red, buffer, offset, 8, 1 );
+			}
+	    };
+	    
+	    var putBufferData = function ( filePath, buffer, async_option ) {
+		    var file = filePath + 'transform.bmp';
+			if( async_option == 'async' ) {
+				/*
+				fs.write(file, buffer, 0, 0, ( error, data ) => {
+					if (error) throw error;
+					return data;
+				});
+				*/
+			} else {
+				fs.writeFileSync(file, buffer);
+		    }			
+	    };
+	    
 	    var buffer = getBufferData( file );
+		//console.log( buffer instanceof Buffer);
 		var offset = new Offset(0);
-	    var bitmap = new BitmapData(buffer, offset);
-	    var color = new ColorTable( buffer, bitmap, offset);
-		color.transform( 0.5 );
+	    var bitmapData = new BitmapData(buffer, offset);
+	    var color = new ColorTable( buffer, bitmapData, offset);
+		
+		color.transform( scalar );
 	    
+	    writeNewColorMap(color, buffer, bitmapData, offset);
 	    
-	    
-	    
-	    
-
-console.log( buffer instanceof Buffer);
-
-/*
-console.log("Int8: ",  self.buffer.readInt8( 0x0 ).toString(16) );
-console.log("LE16: ",  buffer.readUInt16LE( 0x0 ).toString(16) );
-console.log("LE32: ",  buffer.readUInt32LE( 0x2 ).toString(16) );
-console.log("LE16: ",  buffer.readUInt16LE( 0x4 ).toString(16) );
-*/
-
-
-
+	    putBufferData( filePath, buffer );
     }
 };
 
