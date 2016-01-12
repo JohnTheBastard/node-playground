@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "web-start": "gulp start",
-    "start": "nodemon www/js/index.js",
+    "start": "nodemon www/js/helloExpress.js",
     "test": "gulp test"
   },
   "repository": {
