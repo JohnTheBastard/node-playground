@@ -1,4 +1,13 @@
-var shuffle_module = {
+var array_utils_module = {
+	unique: function() {
+		var self = this;
+		var noDupes = [];
+		self.sort().map( function( value, index, collection ){
+			if (value !== collection[index - 1]) { noDupes.push(value); }
+			return value;
+		});
+		return noDupes;
+	},
 	shuffle: function () {
 		return this.map( n => [ Math.random(), n ] )
 				   .sort()
@@ -6,4 +15,4 @@ var shuffle_module = {
 	}
 };
 
-module.exports = shuffle_module;
+module.exports = array_utils_module;
