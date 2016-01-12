@@ -14,56 +14,58 @@ var vector_module = {
 			length = 0;
 		} else if( isNaN( length ) ||
 				   ( length < 0 )  ||
-				   ( length % 1 === 0 ) ) {
+				   ( length % 1 !== 0 ) ) {
 			console.error( "Vector size is not a nonnegative integer." );
 			return null;
 		}
 		
-		var my = {};
+		var self = this;
 				
-		my.length = length;
+		self.length = length;
 		
-		my.push = function(value) {
-			my[ my.length.toString() ] = value;
-			my.length++;
+		self.push = function(value) {
+			self[ self.length ] = value;
+			self.length++;
 		    return true;
 	    };
 	    
-	    my.pop = function() {
+	    self.pop = function() {
 		    var value;
-		    if( my.length > 0 ){
-			    value = my[ my.length.toString() ];
-			    delete my[ my.length.toString() ];
-			    my.length--;
+		    if( self.length > 0 ){
+			    self.length--;
+			    value = self[ self.length ];
+			    delete self[ self.length ];
 		    } else {
 			    value = undefined;
 		    }
 		    return value;
 	    };
 	    
-	    my.shift = function() {
+	    self.shift = function() {
 		    var value;
-		    if( my.length > 0 ){
-			    value = my[ "0" ];
-			    for(var ii = 1; ii < my.length; ii++) {
-				    my[ ( ii - 1 ).toString() ] = my[ ii.toString() ];
+		    if( self.length > 0 ){
+			    value = self[ "0" ];
+			    for(var ii = 1; ii < self.length; ii++) {
+				    self[ ( ii - 1 ) ] = self[ ii ];
 			    }
-			    delete my[ my.length.toString() ];
+			    self.length--;
+			    delete self[ (self.length) ];
 		    } else {
 			    value = undefined;
 		    }
 		    return value;
 	    };
 	    
-	    my.unshift = function(value) {
-		    for( var ii = my.length; ii > 0 ; ii-- ) {
-				    my[ ii.toString() ] = my[ ( ii - 1 ).toString() ];
+	    self.unshift = function(value) {
+		    for( var ii = self.length; ii > 0 ; ii-- ) {
+				    self[ ii ] = self[ ( ii - 1 ) ];
 			}
-			my["0"] = value;
+			self.length++;
+			self["0"] = value;
 		    return true;
 	    };
 	    
-	return my;
+	return self;
     }    
 };
 

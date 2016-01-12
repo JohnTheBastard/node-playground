@@ -5,17 +5,27 @@ var v = new Vector();
 
 console.log( "v initial ", v );
 
-console.log( v.push(3) );
-console.log( v.unshift(2) );
-console.log( v.unshift(1) );
+v.push(3);
+console.log( "push 3: ", v );
+v.push(2);
+console.log( "push 2: ", v );
+v.unshift(1);
+console.log( "unshift 1: ", v );
+v.unshift(0);
+console.log( "unshift 0: ", v );
 
-console.log("v bigger ", v );
-console.log( v.pop() );
-console.log( v.shift() );
-console.log( "v smaller ", v );
+var popped = v.pop();
+console.log("popped: ", popped );
+console.log( "pop 2: ", v );
+
+var shifted = v.shift();
+console.log( "shifted: ", shifted );
+console.log( "shift 0: ", v );
 
 
-var dupes = [ "John", "John", "Jeff", "Geoff", "John", "George", "Joshua", "Jonathan", "John", "Josh", "Jeff" ];
+var dupes = [ "John", "John", "Jeff", "Geoff", 
+			  "John", "George", "Joshua", 
+			  "Jonathan", "John", "Josh", "Jeff" ];
 
 var noDupes = dupes.unique();
-console.log(noDupes);
+//console.log(noDupes);

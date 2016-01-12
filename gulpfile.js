@@ -34,14 +34,14 @@ var jsTransform = lazypipe()
     
 gulp.task( 'validate', function() {
     return gulp.src( [ './www/js/*.js', './www/js/*.json', './test/*.js'], {read: true} )
-    	    .pipe( jsTransform() );
+			.pipe( jsTransform() );
 });
 
 gulp.task('serve', function() {
     browserSync({
 		server: {
 			baseDir: 'www'
-   		}
+		}
 	});
 	gulp.watch(['www/**'], reload);
 });
@@ -71,7 +71,7 @@ gulp.task( 'watch-js', function() {
 gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
 
 gulp.task( 'run-tests', function() {
-    return gulp.src( [ './test/*.js'], {read: false} )
+    return gulp.src( [ './test/vectorTests.js'], {read: false} )
     .pipe( mocha( { reporter: 'spec',
 	    //globals: { chai: require('chai') },  // this seems to do nothing
 		ui: 'bdd' 
