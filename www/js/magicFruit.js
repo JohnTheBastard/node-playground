@@ -34,7 +34,6 @@ var MagicFruit_module = {
 		var mainLoop = function() {
 			var fruit = 0;
 			while ( self.orchard.length < population ) {
-				console.log( self.orchard.length + " < " + population);
 				wait();
 				fruit = harvest(); 
 				//console.log("week: ", self.week, ", fruit: ", fruit );
