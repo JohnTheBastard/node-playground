@@ -1,5 +1,15 @@
-var XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
+var MagicFruit = require( './magicFruit' ).MagicFruit;
 
-console.log(  XXXXXXX("foo") );
 
-//alert("foo");
+var output1 = new MagicFruit( 10, 1 );
+console.log( "Output: ", output1.week );
+
+/*
+var output1 = new MagicFruit( 50000, 1 );
+console.log( output1 );
+
+var output1 = new MagicFruit( 150000, 250 );
+console.log( output1 );
+*/
+
+
