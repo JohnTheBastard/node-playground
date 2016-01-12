@@ -4,7 +4,7 @@
   "description": "a node setup with all the toys already in place when I want to try out new things",
   "main": "index.js",
   "scripts": {
-	"web-start": "gulp start",
+    "web-start": "gulp start",
     "start": "nodemon www/js/index.js",
     "test": "gulp test"
   },
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/JohnTheBastard/node-playground#readme",
   "dependencies": {
+    "express": "^4.13.3",
     "fs": "0.0.2",
     "semver": "^5.1.0",
     "vinyl-buffer": "^1.0.0",
