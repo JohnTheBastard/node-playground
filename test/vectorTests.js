@@ -1,6 +1,21 @@
 var assert = require( 'chai' ).assert;
-var Vector = require( '../www/js/vector' ).Vector;
-Array.prototype.unique = require( '../www/js/vector' ).unique;
+const Vector = require( '../www/js/vector' ).Vector;
+const utils = require( '../www/js/arrayUtils' );
+
+// I should make some tests out of these warnings
+if(Array.prototype.equals)  { console.warn( "Overriding existing Array.prototype.equals." );  }
+if(Array.prototype.shuffle) { console.warn( "Overriding existing Array.prototype.shuffle." ); }
+if(Array.prototype.unique)  { console.warn( "Overriding existing Array.prototype.unique." );  }
+
+Array.prototype.equals = utils.equals;
+Array.prototype.shuffle = utils.shuffle;
+Array.prototype.unique = utils.unique;
+
+// These need tests
+Object.defineProperty( Array.prototype, "equals",  { enumerable: false } );
+Object.defineProperty( Array.prototype, "shuffle", { enumerable: false } );
+Object.defineProperty( Array.prototype, "unique",  { enumerable: false } );
+
 
 var v = new Vector(0);
 var a = [];

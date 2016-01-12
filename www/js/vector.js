@@ -1,14 +1,4 @@
 var vector_module = {
-	unique: function() {
-		var self = this;
-		var noDupes = [];
-		self.sort().map( function( value, index, collection ){
-			if (value !== collection[index - 1]) { noDupes.push(value); }
-			return value; 
-		});
-		return noDupes;
-	},
-
     Vector: function(length) {
 		if( typeof length === "undefined" ) {
 			length = 0;

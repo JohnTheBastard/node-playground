@@ -71,7 +71,7 @@ gulp.task( 'watch-js', function() {
 gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
 
 gulp.task( 'run-tests', function() {
-    return gulp.src( [ './test/vectorTests.js'], {read: false} )
+    return gulp.src( [ './test/vectorTests.js' ], {read: false} )
     .pipe( mocha( { reporter: 'spec',
 	    //globals: { chai: require('chai') },  // this seems to do nothing
 		ui: 'bdd' 
