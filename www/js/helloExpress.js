@@ -64,6 +64,14 @@ app.get('/example/d', [cb0, cb1], function (req, res, next) {
 		next();
 }, function (req, res) { res.send('Hello from D!'); });
 
+// class example, capture from URL
+var pets = [ { type: 'cat', name: 'felix' } ];
+function handlePets(req, res){
+    res.send([ req.params.type, req.params.name ].join(" ") );
+}
+app.get( '/pets/:type', handlePets);
+app.get( '/pets/:type/owner/:name', handlePets);
+
 
 app.listen(3000, function () {
 	console.log('Example app listening on port 3000!');
