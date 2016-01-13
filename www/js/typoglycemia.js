@@ -15,7 +15,6 @@ Object.defineProperty( Array.prototype, "shuffle", { enumerable: false } );
 Object.defineProperty( Array.prototype, "unique",  { enumerable: false } );
 
 var scramble = function(str) {
-	var punctuation = "";
 	// not worrying about intra-word punctuation (e.g. hyphens) or numbers.
 	var regEx = /^([A-Za-z]){1}(.*)([A-Za-z]){1}([^A-Za-z])?$/;
 	if (regEx.test(str) ) {
