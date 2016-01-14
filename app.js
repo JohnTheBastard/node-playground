@@ -5,21 +5,30 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./www/routes/index');
-var users = require('./www/routes/users');
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set( 'views', path.join( __dirname, 'views' ) );
+//app.set( 'view engine', 'hbs' );
+app.set( 'view engine', 'jade' );
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use( morgan('dev') );
+
+
+app.use( favicon( path.join( __dirname, 'public', 'favicon.ico' ) ) );
+app.use( logger('dev'));
+// parse application/x-www-form-urlencoded
+app.use( bodyParser.urlencoded( { extended: false } ) );
+// parse application/json
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded( { extended: false } ) );
+app.use( cookieParser() );
+var publicPath = path.join( __dirname, 'www/public' );
+app.use( express.static( publicPath ) );
+
 
 app.use('/', routes);
 app.use('/users', users);
