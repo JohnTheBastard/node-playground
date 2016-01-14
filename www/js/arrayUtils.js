@@ -16,7 +16,6 @@ var array_utils_module = {
 	},
 	
 	equals: function (array) {
-		// wait, I think I should be using !== not != ...
 	    if (!array || (this.length != array.length) ) { return false; }
 		for (var i = 0, l=this.length; i < l; i++) {
 			if (this[i] instanceof Array && array[i] instanceof Array) {
