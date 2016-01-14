@@ -11,14 +11,14 @@ var users = require('./routes/users');
 function createApp() {
 	
 	var app = express();
+	var publicPath = path.join( __dirname, 'www/public' );
 	
 	// view engine setup
 	app.set( 'views', path.join( __dirname, 'views' ) );
 	//app.set( 'view engine', 'hbs' );
 	app.set( 'view engine', 'jade' );
 	
-	
-	app.use( favicon( path.join( __dirname, 'www/public', 'favicon.ico' ) ) );
+	app.use( favicon( path.join( publicPath, 'favicon.ico' ) ) );
 	app.use( morgan('dev') );
 	
 	// parse application/x-www-form-urlencoded
@@ -28,7 +28,6 @@ function createApp() {
 	
 	app.use( bodyParser.urlencoded( { extended: false } ) );
 	app.use( cookieParser() );
-	var publicPath = path.join( __dirname, 'www/public' );
 	app.use( express.static( publicPath ) );
 	
 	
