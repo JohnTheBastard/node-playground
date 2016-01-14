@@ -8,6 +8,7 @@ router.get('/', (req, res, next) => {
 });
 
 
+/*
 router.get('/userlist', (req, res) => {
 	var db = MongoClient.db;
 	var collection = db.get( 'usercollection' );
@@ -17,5 +18,6 @@ router.get('/userlist', (req, res) => {
 		});
 	});
 });
+*/
 
 module.exports = router;

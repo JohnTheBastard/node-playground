@@ -8,9 +8,8 @@ var bodyParser = require('body-parser');
 var db = require('./models/db');
 var blob = require('./models/blobs');
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 var blobs = require('./routes/blobs');
-//var mongotest = require('./routes/mongotest');
 
 function createApp() {
 	
@@ -33,14 +32,8 @@ function createApp() {
 	app.use( express.static( publicPath ) );
 		
 	app.use('/', routes);
-	app.use('/users', users);
-	app.use('/blobs', blobs);
-	
-	// Make our db accessible to our router
-	app.use( (req,res,next) => {
-		req.db = db;
-		next();
-	});
+	//app.use('/users', users);
+	app.use('/blobs', blobs);	
 	
 	/* * * * * * * * * *
 	 * error handlers  *
