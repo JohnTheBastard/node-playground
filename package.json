@@ -1,11 +1,13 @@
 {
   "name": "node-playground",
   "version": "0.1.0",
+  "private": true,
   "description": "a node setup with all the toys already in place when I want to try out new things",
   "main": "index.js",
   "scripts": {
     "web-start": "gulp start",
-    "start": "nodemon www/js/index.js",
+    "express-start": "node www/index.js",
+    "start": "nodemon www/my_modules/index.js",
     "test": "gulp test"
   },
   "repository": {
@@ -23,9 +25,17 @@
   },
   "homepage": "https://github.com/JohnTheBastard/node-playground#readme",
   "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
+    "debug": "^2.2.0",
     "express": "^4.13.3",
     "fs": "0.0.2",
+    "hapi": "^12.1.0",
+    "hbs": "^4.0.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1",
     "semver": "^5.1.0",
+    "serve-favicon": "^2.3.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

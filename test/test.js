@@ -1,5 +1,5 @@
 var assert = require( 'chai' ).assert;
-//var XXXXXXX = require( '../www/js/xxxxxx' ).XXXXXX;
+//var XXXXXXX = require( '../www/my_modules/xxxxxx' ).XXXXXX;
 
 describe( 'tests XXXXXX methods', function() {
     it( 'should ...', function(){

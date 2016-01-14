@@ -1,5 +1,5 @@
 var assert = require( 'chai' ).assert;
-var greet = require( '../www/js/greet' ).greet;
+var greet = require( '../www/my_modules/greet' ).greet;
 
 describe( 'tests for the greet object', function() {
     it( 'should return a string', function(){

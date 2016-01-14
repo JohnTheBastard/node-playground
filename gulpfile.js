@@ -2,27 +2,27 @@
 // https://markgoodyear.com/2014/01/getting-started-with-gulp/
 
 var gulp = require('gulp'),
-    //autoprefixer = require('gulp-autoprefixer'),
+    autoprefixer = require('gulp-autoprefixer'),
     browserify = require('browserify'),
 	browserSync = require('browser-sync'),
 	buffer = require('vinyl-buffer'),
-    //cache = require('gulp-cache'),
-    //concat = require('gulp-concat'),
+    cache = require('gulp-cache'),
+    concat = require('gulp-concat'),
     del = require('del'),
     gutil = require('gulp-util'),
-    //imagemin = require('gulp-imagemin'),
+    imagemin = require('gulp-imagemin'),
     jshint = require('gulp-jshint'),
     lazypipe = require('lazypipe'),
-    //livereload = require('gulp-livereload'),
+    livereload = require('gulp-livereload'),
     mocha = require('gulp-mocha'),
-    //minifycss = require('gulp-cssnano'),          //gulp-minify-css is depricated
-    //notify = require('gulp-notify'),
-    //rename = require('gulp-rename'),
-    //sass = require('gulp-ruby-sass'),
+    minifycss = require('gulp-cssnano'),          //gulp-minify-css is depricated
+    notify = require('gulp-notify'),
+    rename = require('gulp-rename'),
+    sass = require('gulp-ruby-sass'),
     source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
     stylish = require('jshint-stylish');
-    //uglify = require('gulp-uglify');
+    uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
     
@@ -33,15 +33,15 @@ var jsTransform = lazypipe()
 	//.pipe(uglify);    
     
 gulp.task( 'validate', function() {
-    return gulp.src( [ './www/js/*.js', './www/js/*.json', './test/*.js'], {read: true} )
-    	    .pipe( jsTransform() );
+    return gulp.src( [ '/*.js', './www/my_modules/*.js', './www/my_modules/*.json', './test/*.js'], {read: true} )
+			   .pipe( jsTransform() );
 });
 
 gulp.task('serve', function() {
     browserSync({
 		server: {
-			baseDir: 'www'
-   		}
+			baseDir: 'www/public'
+		}
 	});
 	gulp.watch(['www/**'], reload);
 });
@@ -49,7 +49,7 @@ gulp.task('serve', function() {
 gulp.task('bundle', function () {
 	// set up the browserify instance on a task basis
 	var b = browserify({
-		entries: './www/js/index.js',
+		entries: './www/my_modules/index.js',
 		debug: true
 	});
 	
@@ -61,11 +61,11 @@ gulp.task('bundle', function () {
 		// .pipe(uglify())
 		.on('error', gutil.log)
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest('./www/'));
+		.pipe(gulp.dest('./www/public'));
 });
 
 gulp.task( 'watch-js', function() {
-	gulp.watch(['./www/js/**'], ['bundle']);
+	gulp.watch(['./www/my_modules/**'], ['bundle']);
 });
 
 gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
@@ -79,7 +79,7 @@ gulp.task( 'run-tests', function() {
 });
     
 gulp.task( 'watch-test', function(){
-	gulp.watch( [ '/www/js/*.js', './test/**' ], [ 'run-tests' ] );
+	gulp.watch( [ '/www/my_modules/*.js', './test/**' ], [ 'run-tests' ] );
 });
     
 gulp.task( 'default', ['run-tests', 'validate'] );
