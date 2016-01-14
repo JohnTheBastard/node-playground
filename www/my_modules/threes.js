@@ -1,21 +1,14 @@
 var threes_module = {
-	threes: function (bigNumber) {
-	
+	threes: ( current ) => {
 		var steps = [];
-		var current = bigNumber;
-		var upOrDown = 0;
+		var upOrDown;
 		
 		while ( current > 1 ) {
-			if ( (current % 3) === 0 ) {
-				upOrDown = 0;
-			} else  if( ( (current + 1) % 3 ) === 0 ) {
-				current++;
-				upOrDown = 1;
-			} else {
-				current--;
-				upOrDown = -1;
-			}
-			steps.push( [current - upOrDown, upOrDown] );
+			if ( (current % 3) === 0 ) { upOrDown = 0; } 
+			else  if( ( (current + 1) % 3 ) === 0 ) { upOrDown = 1; }
+			else { upOrDown = -1; }
+			steps.push( [current, upOrDown] );
+			current += upOrDown;
 			current /= 3;
 		} 
 		return steps;
