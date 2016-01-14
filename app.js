@@ -5,14 +5,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var mongo = require('mongodb');
-var MongoClient = mongo.MongoClient;
-var assert = require('assert');
-//var monk = require('monk');
-//var db = monk('localhost:27017/node-playground');
-var url = 'mongodb://localhost:27017/node-playground';
-
-
+var db = require('./models/db');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -35,20 +28,15 @@ function createApp() {
 	app.use( bodyParser.json() );
 	app.use( cookieParser() );
 	app.use( express.static( publicPath ) );
+		
+	app.use('/', routes);
+	app.use('/users', users);
 	
 	// Make our db accessible to our router
-	MongoClient.connect(url, (err, db) => {
-		assert.equal(null, err);
-		console.log("Connected correctly to server.");
-		db.close();
-	});
-	app.use(function(req,res,next){
+	app.use( (req,res,next) => {
 		req.db = db;
 		next();
 	});
-	
-	app.use('/', routes);
-	app.use('/users', users);
 	
 	// catch 404 and forward to error handler
 	app.use( (req, res, next) => {

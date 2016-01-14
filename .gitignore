@@ -26,6 +26,7 @@ node_modules
 /node_modules
 /bower_components
 /data
+/db
 
 # Logs and databases #
 ######################
