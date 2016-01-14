@@ -1,14 +1,12 @@
 var threes_module = {
 	threes: ( current ) => {
 		var steps = [];
-		var upOrDown;
-		
+		var modulus;
 		while ( current > 1 ) {
-			if ( (current % 3) === 0 ) { upOrDown = 0; } 
-			else  if( ( (current + 1) % 3 ) === 0 ) { upOrDown = 1; }
-			else { upOrDown = -1; }
-			steps.push( [current, upOrDown] );
-			current += upOrDown;
+			modulus = current % 3;
+			if ( modulus === 2) { modulus = -1; }
+			steps.push( [current, -modulus] );
+			current -= modulus;
 			current /= 3;
 		} 
 		return steps;
