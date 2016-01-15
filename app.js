@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var db = require('./models/db');
 var blob = require('./models/blobs');
 var routes = require('./routes/index');
-//var users = require('./routes/users');
 var blobs = require('./routes/blobs');
 
 function createApp() {
@@ -23,16 +22,17 @@ function createApp() {
 	
 	app.use( favicon( path.join( publicPath, 'favicon.ico' ) ) );
 	app.use( morgan('dev') );
+
 	
 	// parse application/x-www-form-urlencoded
 	app.use( bodyParser.urlencoded( { extended: false } ) );
 	// parse application/json
 	app.use( bodyParser.json() );
 	app.use( cookieParser() );
-	app.use( express.static( publicPath ) );
+	
+	//app.use( express.static( publicPath ) );
 		
 	app.use('/', routes);
-	//app.use('/users', users);
 	app.use('/blobs', blobs);	
 	
 	/* * * * * * * * * *

@@ -1,6 +1,3 @@
-// See here for some ideas
-// https://markgoodyear.com/2014/01/getting-started-with-gulp/
-
 var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     browserify = require('browserify'),
@@ -13,9 +10,10 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     jshint = require('gulp-jshint'),
     lazypipe = require('lazypipe'),
-    livereload = require('gulp-livereload'),
+    livereload = require('tiny-lr')(),            //preferred to gulp-livereload
     mocha = require('gulp-mocha'),
     minifycss = require('gulp-cssnano'),          //gulp-minify-css is depricated
+    nodemon = require('gulp-nodemon'),
     notify = require('gulp-notify'),
     rename = require('gulp-rename'),
     sass = require('gulp-ruby-sass'),
@@ -33,7 +31,7 @@ var jsTransform = lazypipe()
 	//.pipe(uglify);    
     
 gulp.task( 'validate', function() {
-    return gulp.src( [ '/*.js', './www/my_modules/*.js', './www/my_modules/*.json', './test/*.js'], {read: true} )
+    return gulp.src( [ './*.js', './www/**/*.js',  './test/*.js'], {read: true} )
 			   .pipe( jsTransform() );
 });
 
@@ -79,8 +77,31 @@ gulp.task( 'run-tests', function() {
 });
     
 gulp.task( 'watch-test', function(){
-	gulp.watch( [ '/www/my_modules/*.js', './test/**' ], [ 'run-tests' ] );
+	gulp.watch( [ './www/my_modules/*.js', './test/**' ], [ 'run-tests' ] );
 });
     
 gulp.task( 'default', ['run-tests', 'validate'] );
 gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
+
+
+gulp.task( 'express-start', function() {
+	nodemon({
+		script: './www/index.js',
+    })
+	.on('restart', function () {
+		console.log('restarted!');
+		livereload.changed( {body: { files: __dirname }} );
+	});
+	
+	livereload.listen(35729);
+	
+
+	gulp.watch(['./views/**/*.jade' ], function(event){
+		var fileName = require('path').relative('3000', event.path);
+		livereload.changed({
+			body: { files: [fileName] }
+		});
+	});
+
+	
+});
