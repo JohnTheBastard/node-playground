@@ -23,6 +23,7 @@
 *.zip
 /node_modules
 /bower_components
+/data
 # Logs and databases #
 ######################
 *.log
