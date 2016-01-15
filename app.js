@@ -30,7 +30,7 @@ function createApp() {
 	app.use( bodyParser.json() );
 	app.use( cookieParser() );
 	
-	//app.use( express.static( publicPath ) );
+	app.use( express.static( publicPath ) );
 		
 	app.use('/', routes);
 	app.use('/blobs', blobs);	
