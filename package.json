@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/JohnTheBastard/node-playground#readme",
   "dependencies": {
+    "babel-core": "^6.4.0",
     "body-parser": "^1.14.2",
     "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
@@ -48,6 +49,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.0",
     "browser-sync": "^2.11.0",
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
