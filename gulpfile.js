@@ -26,9 +26,9 @@ var reload = browserSync.reload;
     
 // Doesn't really transform much yet
 var jsTransform = lazypipe()
-	.pipe(jshint)
-	.pipe(jshint.reporter, stylish);
-	//.pipe(uglify);    
+	.pipe(jshint('.jshintrc'))
+	.pipe(jshint.reporter, stylish)
+	.pipe(uglify);    
     
 gulp.task( 'validate', function() {
     return gulp.src( [ './*.js', './www/**/*.js',  './test/*.js'], {read: true} )
@@ -83,7 +83,6 @@ gulp.task( 'watch-test', function(){
 gulp.task( 'default', ['run-tests', 'validate'] );
 gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
 
-
 gulp.task( 'express-start', function() {
 	nodemon({
 		script: './www/index.js',
@@ -95,7 +94,6 @@ gulp.task( 'express-start', function() {
 	
 	livereload.listen(35729);
 	
-
 	gulp.watch(['./views/**/*.jade' ], function(event){
 		var fileName = require('path').relative('3000', event.path);
 		livereload.changed({
