@@ -26,9 +26,9 @@ var reload = browserSync.reload;
     
 // Doesn't really transform much yet
 var jsTransform = lazypipe()
-	.pipe(jshint('.jshintrc'))
-	.pipe(jshint.reporter, stylish)
-	.pipe(uglify);    
+	.pipe(jshint)
+	.pipe(jshint.reporter, stylish);
+	//.pipe(uglify);    
     
 gulp.task( 'validate', function() {
     return gulp.src( [ './*.js', './www/**/*.js',  './test/*.js'], {read: true} )

@@ -29,6 +29,7 @@
     "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
     "express": "^4.13.3",
+    "express-restify-mongoose": "^2.4.1",
     "formidable": "^1.0.17",
     "fs": "0.0.2",
     "hapi": "^12.1.0",
