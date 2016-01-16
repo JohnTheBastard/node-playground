@@ -25,8 +25,7 @@
 node_modules
 /node_modules
 /bower_components
-/data
-/db
+
 
 # Logs and databases #
 ######################
@@ -35,6 +34,14 @@ logs
 *.sql
 *.sqlite
 config.js
+/data
+/db
+
+# Compiled files #
+##################
+/dist
+bundle.js
+bundle.js.map
 
 # OS generated files #
 ######################

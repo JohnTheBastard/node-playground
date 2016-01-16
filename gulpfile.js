@@ -1,34 +1,36 @@
-var gulp = require('gulp'),
-    autoprefixer = require('gulp-autoprefixer'),
-    browserify = require('browserify'),
-	browserSync = require('browser-sync'),
-	buffer = require('vinyl-buffer'),
-    cache = require('gulp-cache'),
-    concat = require('gulp-concat'),
-    del = require('del'),
-    gutil = require('gulp-util'),
-    imagemin = require('gulp-imagemin'),
-    jshint = require('gulp-jshint'),
-    lazypipe = require('lazypipe'),
-    livereload = require('tiny-lr')(),            //preferred to gulp-livereload
-    mocha = require('gulp-mocha'),
-    minifycss = require('gulp-cssnano'),          //gulp-minify-css is depricated
-    nodemon = require('gulp-nodemon'),
-    notify = require('gulp-notify'),
-    rename = require('gulp-rename'),
-    sass = require('gulp-ruby-sass'),
-    source = require('vinyl-source-stream'),
-    sourcemaps = require('gulp-sourcemaps'),
-    stylish = require('jshint-stylish');
-    uglify = require('gulp-uglify');
+const gulp = require('gulp');
+const autoprefixer = require('gulp-autoprefixer');
+const babel = require('gulp-babel');
+const browserify = require('browserify');
+const browserSync = require('browser-sync');
+const buffer = require('vinyl-buffer');
+const cache = require('gulp-cache');
+const concat = require('gulp-concat');
+const del = require('del');
+const gutil = require('gulp-util');
+const imagemin = require('gulp-imagemin');
+const jshint = require('gulp-jshint');
+const lazypipe = require('lazypipe');
+const livereload = require('tiny-lr')();            //preferred to gulp-livereload
+const mocha = require('gulp-mocha');
+const minifycss = require('gulp-cssnano');          //gulp-minify-css is depricated
+const nodemon = require('gulp-nodemon');
+const notify = require('gulp-notify');
+const rename = require('gulp-rename');
+const sass = require('gulp-ruby-sass');
+const source = require('vinyl-source-stream');
+const sourcemaps = require('gulp-sourcemaps');
+const stylish = require('jshint-stylish');
+const uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
     
 // Doesn't really transform much yet
 var jsTransform = lazypipe()
 	.pipe(jshint)
-	.pipe(jshint.reporter, stylish);
-	//.pipe(uglify);    
+	.pipe(jshint.reporter, stylish)
+	.pipe(babel)
+	.pipe(uglify);    
     
 gulp.task( 'validate', function() {
     return gulp.src( [ './*.js', './www/**/*.js',  './test/*.js'], {read: true} )
@@ -71,21 +73,32 @@ gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
 gulp.task( 'run-tests', function() {
     return gulp.src( [ './test/*.js'], {read: false} )
     .pipe( mocha( { reporter: 'spec',
-	    //globals: { chai: require('chai') },  // this seems to do nothing
-		ui: 'bdd' 
+					compilers: [ 'js:babel-core/register' ],
+					//globals: { chai: require('chai') },  // this seems to do nothing
+					ui: 'bdd' 
 	} ) );
 });
+
+gulp.task('build', () => {
+	return gulp.src('./**/*.js')
+			   .pipe( jsTransform() )
+			   .pipe(gulp.dest('dist'));
+});
+
     
 gulp.task( 'watch-test', function(){
-	gulp.watch( [ './www/my_modules/*.js', './test/**' ], [ 'run-tests' ] );
+	gulp.watch( [ './client/my_modules/*.js', './src/test/**' ], [ 'run-tests' ] );
 });
+
     
 gulp.task( 'default', ['run-tests', 'validate'] );
 gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
 
+
+
 gulp.task( 'express-start', function() {
 	nodemon({
-		script: './www/index.js',
+		script: './src/www/index.js',
     })
 	.on('restart', function () {
 		console.log('restarted!');
