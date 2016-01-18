@@ -13,14 +13,14 @@ var blobs = require('./routes/blobs');
 function createApp() {
 	
 	var app = express();
-	var publicPath = path.join( __dirname, 'www/public' );
+	var publicPath = path.join( __dirname, 'www/public/' );
 	
 	// view engine setup
 	app.set( 'views', path.join( __dirname, 'views' ) );
 	//app.set( 'view engine', 'hbs' );
 	app.set( 'view engine', 'jade' );
 	
-	app.use( favicon( path.join( publicPath, 'favicon.ico' ) ) );
+	app.use( favicon( path.join( publicPath, 'img/favicon.ico' ) ) );
 	app.use( morgan('dev') );
 
 	

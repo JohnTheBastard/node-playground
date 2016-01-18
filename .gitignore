@@ -9,6 +9,9 @@
 *.scss
 *.sass*
 *.css.map
+/dist
+*bundle.js
+*bundle.js.map
 
 # Packages #
 ############
@@ -36,12 +39,6 @@ logs
 config.js
 /data
 /db
-
-# Compiled files #
-##################
-/dist
-bundle.js
-bundle.js.map
 
 # OS generated files #
 ######################

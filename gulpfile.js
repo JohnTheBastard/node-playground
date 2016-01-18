@@ -33,23 +33,23 @@ var jsTransform = lazypipe()
 	.pipe(uglify);    
     
 gulp.task( 'validate', function() {
-    return gulp.src( [ './*.js', './www/**/*.js',  './test/*.js'], {read: true} )
+    return gulp.src( [ './*.js', './client/**/*.js',  './test/*.js'], {read: true} )
 			   .pipe( jsTransform() );
 });
 
 gulp.task('serve', function() {
     browserSync({
 		server: {
-			baseDir: 'www/public'
+			baseDir: 'client/public'
 		}
 	});
-	gulp.watch(['www/**'], reload);
+	gulp.watch(['client/**'], reload);
 });
 
 gulp.task('bundle', function () {
 	// set up the browserify instance on a task basis
 	var b = browserify({
-		entries: './www/my_modules/index.js',
+		entries: './client/my_modules/index.js',
 		debug: true
 	});
 	
@@ -61,11 +61,11 @@ gulp.task('bundle', function () {
 		// .pipe(uglify())
 		.on('error', gutil.log)
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest('./www/public'));
+		.pipe(gulp.dest('./client/public'));
 });
 
 gulp.task( 'watch-js', function() {
-	gulp.watch(['./www/my_modules/**'], ['bundle']);
+	gulp.watch(['./client/my_modules/**'], ['bundle']);
 });
 
 gulp.task( 'start', ['bundle', 'watch-js', 'serve']);

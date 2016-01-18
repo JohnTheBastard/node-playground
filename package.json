@@ -14,8 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/JohnTheBastard/node-playground.git"
   },
-  "keywords": [ "node",
-  				"playground" ],
+  "keywords": [
+    "node",
+    "playground"
+  ],
   "author": "John Hearn",
   "license": "CC-BY-NC-4.0",
   "bugs": {
@@ -23,7 +25,9 @@
   },
   "homepage": "https://github.com/JohnTheBastard/node-playground#readme",
   "babel": {
-	  "presets": [ "es2015" ]
+    "presets": [
+      "es2015"
+    ]
   },
   "dependencies": {
     "babel-core": "^6.4.0",
