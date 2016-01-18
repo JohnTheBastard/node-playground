@@ -10,20 +10,17 @@ var numerals = {
 
 var roman_module = {
 	roman: function (input) {
-		var ii = 0;
 		var total = 0;
-		var r = input.split("");
-		
-		while( ii < r.length) {			
-			if ( numerals[ r[ii] ] < numerals[ r[ii + 1] ]) {
-				total += ( numerals[ r[ii + 1] ] - numerals[ r[ii] ] );
-				ii += 2;
-			} else {
-				total += numerals[ r[ii] ];
-				ii++;
-			}
-		}
-		return total;
+		return input.split("")
+			.map( (cv, ii, arr) => {
+				console.log( arr[ii + 1] + " -> " + numerals[ arr[ii + 1] ]);
+				if ( numerals[ cv ] < numerals[ arr[ii + 1] ]) {
+					total -= numerals[ cv ];
+				} else {
+					total += numerals[ cv ];
+				}			
+			})
+			.reduce( (pv, cv) => pv +cv );
 	}
 };
 
