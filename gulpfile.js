@@ -24,8 +24,6 @@ const stylish = require('jshint-stylish');
 const uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
-
-console.log(process.argv);
     
 // Doesn't really transform much yet
 var jsTransform = lazypipe()
@@ -41,9 +39,7 @@ gulp.task( 'validate', function() {
 
 gulp.task('serve', function() {
     browserSync({
-		server: {
-			baseDir: 'client/public'
-		}
+		server: { baseDir: 'client/public' }
 	});
 	gulp.watch(['client/**'], reload);
 });
@@ -75,6 +71,7 @@ gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
 gulp.task( 'run-tests', function() {
     return gulp.src( [ './test/*.js'], {read: false} )
     .pipe( mocha( { reporter: 'spec',
+					useColors: true,
 					compilers: [ 'js:babel-core/register' ],
 					//globals: { chai: require('chai') },  // this seems to do nothing
 					ui: 'bdd' 
@@ -94,21 +91,21 @@ gulp.task( 'watch-test', function(){
 
     
 gulp.task( 'default', ['run-tests', 'validate'] );
-gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
+gulp.task( 'test-all', ['run-tests', 'validate', 'watch-test' ] );
 
-gulp.task( 'test-arg', function() {
+gulp.task( 'test-with-args', function() {
 	var testFiles = [];
 	// grab every other arg because we don't want the --option flags before each file
 	for (var ii = 4; ii < process.argv.length; ii+=2 ) {
 		testFiles.push( './client/test/' + process.argv[ii] + 'Tests.js' );
 	}
-		return gulp.src( testFiles, {read: false} )
-		    .pipe( mocha( { reporter: 'spec',
-							useColors: true,
-							compilers: [ 'js:babel-core/register' ],
-							//globals: { chai: require('chai') },  // this seems to do nothing
-							ui: 'bdd' 
-						  } ) );
+	return gulp.src( testFiles, {read: false} )
+	    .pipe( mocha( { reporter: 'spec',
+						useColors: true,
+						compilers: [ 'js:babel-core/register' ],
+						//globals: { chai: require('chai') },  // this seems to do nothing
+						ui: 'bdd' 
+					  } ) );
 } );
 
 

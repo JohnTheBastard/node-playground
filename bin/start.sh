@@ -28,4 +28,6 @@ elif [ ${args[0]} = "client" ]; then
 	$( npm run web-start )
 elif [ ${args[0]} = "express" ]; then
 	$( npm run express-start)
+else
+	echo "invalid args"
 fi
