@@ -1,52 +1,7 @@
-const Vector = require( './vector' ).Vector;
-const utils = require( './arrayUtils' );
+var trade = require( './daytrade' ).trade;
 
-// Warn if overriding
-if(Array.prototype.equals)  { console.warn( "Overriding existing Array.prototype.equals." );  }
-if(Array.prototype.shuffle) { console.warn( "Overriding existing Array.prototype.shuffle." ); }
-if(Array.prototype.unique)  { console.warn( "Overriding existing Array.prototype.unique." );  }
+var stockTicks = "9.20 8.03 10.02 8.08 8.14 8.10 8.31 8.28 8.35 8.34 8.39 8.45 8.38 8.38 8.32 8.36 8.28 8.28 8.38 8.48 8.49 8.54 8.73 8.72 8.76 8.74 8.87 8.82 8.81 8.82 8.85 8.85 8.86 8.63 8.70 8.68 8.72 8.77 8.69 8.65 8.70 8.98 8.98 8.87 8.71 9.17 9.34 9.28 8.98 9.02 9.16 9.15 9.07 9.14 9.13 9.10 9.16 9.06 9.10 9.15 9.11 8.72 8.86 8.83 8.70 8.69 8.73 8.73 8.67 8.70 8.69 8.81 8.82 8.83 8.91 8.80 8.97 8.86 8.81 8.87 8.82 8.78 8.82 8.77 8.54 8.32 8.33 8.32 8.51 8.53 8.52 8.41 8.55 8.31 8.38 8.34 8.34 8.19 8.17 8.16";
 
-Array.prototype.equals = utils.equals;
-Array.prototype.shuffle = utils.shuffle;
-Array.prototype.unique = utils.unique;
+console.log(  trade(stockTicks) );
 
-// Hide from for-in loops
-Object.defineProperty( Array.prototype, "equals",  { enumerable: false } );
-Object.defineProperty( Array.prototype, "shuffle", { enumerable: false } );
-Object.defineProperty( Array.prototype, "unique",  { enumerable: false } );
-
-
-
-var alphabet = ["a", "b", "c", "d", "e", "f",
-				"g", "h", "i", "j", "k", "l",
-				"m", "n", "o", "p", "q", "r",
-				"s", "t", "u", "v", "w", "x", 
-				"y", "z"];
-				
-var randomized = alphabet.shuffle();
-console.log( randomized.join(" ") );
-
-
-
-var v = new Vector();
-
-
-v.push(3);
-v.push(2);
-v.unshift(1);
-v.unshift(0);
-
-var popped = v.pop();
-console.log("popped: ", popped );
-console.log( "pop 2: ", v );
-
-var shifted = v.shift();
-console.log( "shifted: ", shifted );
-console.log( "shift 0: ", v );
-
-
-var dupes = [ 'John', 'John', 'Jeff', 'Geoff', 'John', 'George', 
-			  'Joshua', 'Jonathan', 'John', 'Josh', 'Jeff' ];
-
-var noDupes = dupes.unique();
-console.log( dupes.sort().join(" ") );
+//alert("foo");
