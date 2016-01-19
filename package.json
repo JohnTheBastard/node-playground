@@ -5,11 +5,11 @@
   "description": "a node setup with all the toys already in place when I want to try out new things",
   "main": "index.js",
   "scripts": {
-	"gulp": "gulp test-arg",
+	"gulp": "gulp test-with-args",
     "client-start": "gulp start",
     "express-start": "gulp express-start",
     "start": "nodemon client/my_modules/index.js",
-    "test": "gulp test"
+    "test": "gulp test-all"
   },
   "repository": {
     "type": "git",
