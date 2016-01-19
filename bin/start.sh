@@ -15,7 +15,14 @@ elif [ ${args[0]} = "test" ]; then
 	elif [ ${args[1]}  = "all" ]; then
 		$( npm test | tee /dev/tty )
 	else
-		$( npm run gulp -- --option ${args[1]} | tee /dev/tty )
+		num=1
+		while [ $num -lt $# ]
+		do
+			(( num++ ))
+			files=$files' --option '${!num}
+		done
+		
+		$( npm run gulp -- $files | tee /dev/tty )
 	fi
 elif [ ${args[0]} = "client" ]; then
 	$( npm run web-start )

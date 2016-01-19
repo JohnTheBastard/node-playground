@@ -97,14 +97,19 @@ gulp.task( 'default', ['run-tests', 'validate'] );
 gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
 
 gulp.task( 'test-arg', function() {
-	return gulp.src( [ './client/test/' + process.argv[4] + 'Tests.js'], {read: false} )
-	    .pipe( mocha( { reporter: 'spec',
-		    			useColors: true,
-						compilers: [ 'js:babel-core/register' ],
-						//globals: { chai: require('chai') },  // this seems to do nothing
-						ui: 'bdd' 
-		} ) );
-	});
+	var testFiles = [];
+	// grab every other arg because we don't want the --option flags before each file
+	for (var ii = 4; ii < process.argv.length; ii+=2 ) {
+		testFiles.push( './client/test/' + process.argv[ii] + 'Tests.js' );
+	}
+		return gulp.src( testFiles, {read: false} )
+		    .pipe( mocha( { reporter: 'spec',
+							useColors: true,
+							compilers: [ 'js:babel-core/register' ],
+							//globals: { chai: require('chai') },  // this seems to do nothing
+							ui: 'bdd' 
+						  } ) );
+} );
 
 
 gulp.task( 'express-start', function() {
