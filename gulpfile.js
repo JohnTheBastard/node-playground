@@ -24,6 +24,8 @@ const stylish = require('jshint-stylish');
 const uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
+
+console.log(process.argv);
     
 // Doesn't really transform much yet
 var jsTransform = lazypipe()
@@ -94,6 +96,15 @@ gulp.task( 'watch-test', function(){
 gulp.task( 'default', ['run-tests', 'validate'] );
 gulp.task( 'test', ['run-tests', 'validate', 'watch-test' ] );
 
+gulp.task( 'test-arg', function() {
+	return gulp.src( [ './client/test/' + process.argv[4] + 'Tests.js'], {read: false} )
+	    .pipe( mocha( { reporter: 'spec',
+		    			useColors: true,
+						compilers: [ 'js:babel-core/register' ],
+						//globals: { chai: require('chai') },  // this seems to do nothing
+						ui: 'bdd' 
+		} ) );
+	});
 
 
 gulp.task( 'express-start', function() {

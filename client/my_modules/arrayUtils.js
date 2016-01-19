@@ -1,4 +1,4 @@
-var array_utils_module = {
+var utils = {
 	unique: function() {
 		var self = this;
 		var noDupes = [];
@@ -27,4 +27,11 @@ var array_utils_module = {
 	}	
 };
 
-module.exports = array_utils_module;
+if(Array.prototype.equals)  { console.warn( "Overriding existing Array.prototype.equals." );  }
+if(Array.prototype.shuffle) { console.warn( "Overriding existing Array.prototype.shuffle." ); }
+if(Array.prototype.unique)  { console.warn( "Overriding existing Array.prototype.unique." );  }
+
+// These need tests
+Object.defineProperty( Array.prototype, "equals",  { enumerable: false, value: utils.equals } );
+Object.defineProperty( Array.prototype, "shuffle", { enumerable: false, value: utils.shuffle } );
+Object.defineProperty( Array.prototype, "unique",  { enumerable: false, value: utils.unique } );

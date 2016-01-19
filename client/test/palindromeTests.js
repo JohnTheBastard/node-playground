@@ -1,5 +1,5 @@
 var assert = require( 'chai' ).assert;
-var findLongest = require( '../www/my_modules/findLongestPalindrome' ).findLongestPalindrome;
+var findLongest = require( '../my_modules/findLongestPalindrome' ).findLongestPalindrome;
 
 describe( 'longest palindrome', () => {
 	it( 'finds simple palindrome', () => {
