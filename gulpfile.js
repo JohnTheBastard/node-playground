@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const babel = require('gulp-babel');
+const babelify = require('babelify');
 const browserify = require('browserify');
 const browserSync = require('browser-sync');
 const buffer = require('vinyl-buffer');
@@ -25,16 +26,20 @@ const uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
     
-var jsTransform = lazypipe()
+var lint = lazypipe()
 	.pipe(jshint)
-	.pipe(jshint.reporter, stylish)
+	.pipe(jshint.reporter, stylish);
+
+var jsTransform = lazypipe()
 	.pipe(babel)
-	.pipe(uglify);    
+	.pipe(uglify);
+
     
 gulp.task( 'validate', function() {
     return gulp.src( [ './src/*.js', './client/**/*.js',  '!./**/vendor/**'], {read: true} )
-			   .pipe( jsTransform() );
+			   .pipe( lint() );
 });
+
 
 gulp.task('serve', function() {
     browserSync({
@@ -43,25 +48,25 @@ gulp.task('serve', function() {
 	gulp.watch(['client/**'], reload);
 });
 
-gulp.task('bundle', function () {
+gulp.task('bundle', ['validate'], function () {
 	// set up the browserify instance on a task basis
 	var b = browserify({
 		entries: './client/my_modules/index.js',
-		debug: true
-	});
+		extensions: ['.js'],
+		debug: true })
+		.transform(babelify, {presets: ['es2015']});
 	
 	return b.bundle()
 		.pipe(source('bundle.js'))
 		.pipe(buffer())
 		.pipe(sourcemaps.init({loadMaps: true}))
-		// Add transformation tasks to the pipeline here.
-		// .pipe(uglify())
+//		.pipe(uglify())
 		.on('error', gutil.log)
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest('./client/public'));
+		.pipe(gulp.dest('./client/public/js'));
 });
 
-gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
+gulp.task( 'start', [ 'bundle', 'watch-js', 'serve' ]);
 
 gulp.task( 'run-tests', function() {
     return gulp.src( [ './src/test/*Tests.js', './client/test/*Tests.js' ], {read: false} )
@@ -74,7 +79,8 @@ gulp.task( 'run-tests', function() {
 });
 
 gulp.task('build', () => {
-	return gulp.src('./**/*.js')
+	return gulp.src('./src/**/*.js')
+			   .pipe( lint() )
 			   .pipe( jsTransform() )
 			   .pipe(gulp.dest('dist'));
 });
@@ -99,6 +105,7 @@ gulp.task( 'test-with-args', function() {
 		testFiles.push( './client/test/' + process.argv[ii] + 'Tests.js' );
 	}
 	return gulp.src( testFiles, {read: false} )
+		.pipe( lint() )
 		.pipe( jsTransform() )
 	    .pipe( mocha( { reporter: 'spec',
 						useColors: true,

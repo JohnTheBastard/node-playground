@@ -5,7 +5,7 @@
   "description": "a node setup with all the toys already in place when I want to try out new things",
   "main": "index.js",
   "scripts": {
-	"gulp": "gulp test-with-args",
+    "gulp": "gulp test-with-args",
     "client-start": "gulp start",
     "express-start": "gulp express-start",
     "start": "nodemon client/my_modules/index.js",
@@ -57,6 +57,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "babelify": "^7.2.0",
     "browser-sync": "^2.11.0",
     "browserify": "^12.0.1",
     "chai": "^3.4.1",

@@ -25,7 +25,7 @@ elif [ ${args[0]} = "test" ]; then
 		$( npm run gulp -- $files | tee /dev/tty )
 	fi
 elif [ ${args[0]} = "client" ]; then
-	$( npm run web-start )
+	$( npm run client-start )
 elif [ ${args[0]} = "express" ]; then
 	$( npm run express-start)
 else
