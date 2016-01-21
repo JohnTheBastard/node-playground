@@ -25,7 +25,6 @@ const uglify = require('gulp-uglify');
     
 var reload = browserSync.reload;
     
-// Doesn't really transform much yet
 var jsTransform = lazypipe()
 	.pipe(jshint)
 	.pipe(jshint.reporter, stylish)
@@ -33,7 +32,7 @@ var jsTransform = lazypipe()
 	.pipe(uglify);    
     
 gulp.task( 'validate', function() {
-    return gulp.src( [ './*.js', './client/**/*.js',  './test/*.js'], {read: true} )
+    return gulp.src( [ './src/*.js', './client/**/*.js',  '!./**/vendor/**'], {read: true} )
 			   .pipe( jsTransform() );
 });
 
@@ -62,14 +61,10 @@ gulp.task('bundle', function () {
 		.pipe(gulp.dest('./client/public'));
 });
 
-gulp.task( 'watch-js', function() {
-	gulp.watch(['./client/my_modules/**'], ['bundle']);
-});
-
 gulp.task( 'start', ['bundle', 'watch-js', 'serve']);
 
 gulp.task( 'run-tests', function() {
-    return gulp.src( [ './test/*.js'], {read: false} )
+    return gulp.src( [ './src/test/*Tests.js', './client/test/*Tests.js' ], {read: false} )
     .pipe( mocha( { reporter: 'spec',
 					useColors: true,
 					compilers: [ 'js:babel-core/register' ],
@@ -84,13 +79,17 @@ gulp.task('build', () => {
 			   .pipe(gulp.dest('dist'));
 });
 
+gulp.task( 'watch-js', function() {
+	gulp.watch(['./client/my_modules/**'], ['bundle']);
+});
     
 gulp.task( 'watch-test', function(){
-	gulp.watch( [ './client/my_modules/*.js', './src/test/**' ], [ 'run-tests' ] );
+	gulp.watch( [ './client/my_modules/*.js', './src/**' ], [ 'run-tests' ] );
 });
 
     
-gulp.task( 'default', ['run-tests', 'validate'] );
+gulp.task( 'default', ['run-tests', 'validate'] );  // gulp wants a default but we never use it
+
 gulp.task( 'test-all', ['run-tests', 'validate', 'watch-test' ] );
 
 gulp.task( 'test-with-args', function() {
@@ -100,6 +99,7 @@ gulp.task( 'test-with-args', function() {
 		testFiles.push( './client/test/' + process.argv[ii] + 'Tests.js' );
 	}
 	return gulp.src( testFiles, {read: false} )
+		.pipe( jsTransform() )
 	    .pipe( mocha( { reporter: 'spec',
 						useColors: true,
 						compilers: [ 'js:babel-core/register' ],
