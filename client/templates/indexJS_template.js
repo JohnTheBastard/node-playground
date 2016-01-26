@@ -1,5 +1,5 @@
-var XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
+'use strict';
+
+let XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
 
 console.log(  XXXXXXX("foo") );
-
-//alert("foo");
