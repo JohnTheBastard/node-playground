@@ -5,17 +5,16 @@ let rubric = { "-": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5,
 
 let bowling_module = {
 	score(sheet) {
-		//let bonusThrow = sheet.split(" ")[9].split("").length - 2;
 		let frames = sheet.split(" ");
-		// join frames, split into throws, get count
-		let throwsInfirstNine = frames.slice(0,9).join("").split("").length;
+		// join first 9 frames, split into throws, get count
+		let throwsInFirstNine = frames.slice(0,9).join("").split("").length; 
 		let everyThrow = frames.join("").split("");
 		let lastFrame = frames[9].split("");
 		let total = 0;
 		let lastFrameScore = 0;
 
 		// calculate the score for the first nine frames
-		for( let ii = 0; ii < throwsInfirstNine; ii++  ) {
+		for( let ii = 0; ii < throwsInFirstNine; ii++  ) {
 			if ( everyThrow[ii] === "/" ) {
 				total += (10 - rubric[ everyThrow[ii-1] ]) + rubric[ everyThrow[ii+1] ];
 			} else if( everyThrow[ii] === ("X"||"x") ) {
