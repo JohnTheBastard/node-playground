@@ -27,7 +27,7 @@ elif [ ${args[0]} = "test" ]; then
 elif [ ${args[0]} = "client" ]; then
 	$( npm run client-start )
 elif [ ${args[0]} = "express" ]; then
-	$( npm run express-start)
+	$( npm run express-start | tee /dev/tty )
 else
 	echo "invalid args"
 fi
