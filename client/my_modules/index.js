@@ -1,7 +1,8 @@
 'use strict';
 
-let XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
+let mastermind = require( './mastermind' ).mastermind;
 
-console.log(  XXXXXXX("foo") );
+let input = "1492 5 2013 1865 1234 4321 7491";
 
-//alert("foo");
+console.log( mastermind(input) );
+

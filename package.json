@@ -74,6 +74,7 @@
     "chai": "^3.4.1",
     "chai-http": "^1.0.0",
     "connect-livereload": "^0.5.4",
+    "debug": "^2.2.0",
     "del": "^2.2.0",
     "gently": "^0.10.0",
     "gulp": "^3.9.0",

@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var db = require('./models/db');
 var blob = require('./models/blobs');
 var routes = require('./routes/index');
-var blobs = require('./routes/blobs');
+var blobRoutes = require('./routes/blobs');
 
 function createApp() {
 	
@@ -33,7 +33,7 @@ function createApp() {
 	app.use( express.static( publicPath ) );
 		
 	app.use('/', routes);
-	app.use('/blobs', blobs);	
+	app.use('/blobs', blobRoutes);	
 	
 	/* * * * * * * * * *
 	 * error handlers  *
