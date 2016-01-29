@@ -1,7 +1,12 @@
 'use strict';
 
-let XXXXXXX = require( './xxxxxxx' ).XXXXXXX;
+let lookAndSay = require( './lookAndSay' ).lookAndSay;
 
-console.log(  XXXXXXX("foo") );
+let s = "1";
+let n = 9;
 
-//alert("foo");
+lookAndSay(s, n);
+
+
+ 
+ 
