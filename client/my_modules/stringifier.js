@@ -22,22 +22,19 @@ let stringifier_module = {
 							  "start": deepcopy( level.start ),
 							  "crate": deepcopy( level.crate ),
 							  "dots":  deepcopy( level.dots  ) } };
-/*
-			levelObject.identifier = "easy01-level" + pad(index, 2);
-			levelObject.difficulty = "easy";
-			levelObject.data = level;
-*/
 			stringifiedLevels.push(levelObject);
 		});
 		
 		data.hard.forEach(function(level, index) {
-			//let levelObject = { "identifier": "hard01-level" + pad(index, 2), "difficulty": "hard", "data": JSON.parse(JSON.stringify(clone(level)))};
-/*
-			levelObject.identifier = "hard01-level" + pad(index, 2);
-			levelObject.difficulty = "hard";
-			levelObject.data = level;
-*/
-			//stringifiedLevels.push(levelObject);
+			let dimension = level.dimension;
+			let floor = level.floor
+			let levelObject = { "identifier": "hard01-level" + pad(index, 2), "difficulty": "hard", 
+					"data": { "dimension": level.dimension, 
+							  "floor": deepcopy( level.floor ), 
+							  "start": deepcopy( level.start ),
+							  "crate": deepcopy( level.crate ),
+							  "dots":  deepcopy( level.dots  ) } };
+			stringifiedLevels.push(levelObject);
 		});
 		
 		
