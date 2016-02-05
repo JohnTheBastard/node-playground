@@ -14,8 +14,6 @@ let stringifier_module = {
 		let stringifiedLevels = [];
 		
 		data.easy.forEach(function(level, index) {
-			let dimension = level.dimension;
-			let floor = level.floor
 			let levelObject = { "identifier": "easy01-level" + pad(index, 2), "difficulty": "easy", 
 					"data": { "dimension": level.dimension, 
 							  "floor": deepcopy( level.floor ), 
@@ -26,8 +24,6 @@ let stringifier_module = {
 		});
 		
 		data.hard.forEach(function(level, index) {
-			let dimension = level.dimension;
-			let floor = level.floor
 			let levelObject = { "identifier": "hard01-level" + pad(index, 2), "difficulty": "hard", 
 					"data": { "dimension": level.dimension, 
 							  "floor": deepcopy( level.floor ), 
