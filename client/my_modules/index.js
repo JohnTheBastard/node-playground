@@ -1,4 +1,8 @@
 var stringifier = require( './stringifier' ).stringifier;
+var fs = require('fs');
+
+
+
 var levelData = { "easy":
 		  [ { "dimension": 9,
 		      "floor": [ [ "01", "01" ], [ "02", "01" ], [ "03", "01" ], [ "01", "02" ],
@@ -295,9 +299,21 @@ var levelData = { "easy":
 };
 
 
+//var outputFilename = '~/Desktop/levels.json';
 
 var stringifiedLevelData = stringifier(levelData);
-console.log(  stringifiedLevelData );
+
+/*
+fs.writeFile(outputFilename, JSON.stringify(stringifiedLevelData, null, 4), function(err) {
+	if(err) {
+		console.log(err);
+	} else {
+		console.log("JSON saved to " + outputFilename);
+	}
+}); 
+*/
+
+console.log( JSON.stringify(stringifiedLevelData) );
 
 
 
